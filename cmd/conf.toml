@@ -1,0 +1,42 @@
+########################   config as server   #######################
+#client listen
+bindPort = 6060
+
+
+########################   config as client   #######################
+#server address
+serverAddr = "0.0.0.0"
+serverPort = 6060
+
+# Decide if exit program when first login failed, otherwise continuous relogin to frps
+# default is true
+loginFailExit = false
+
+[[proxies]]
+name = "static_file"
+type = "tcp"
+remotePort = 6061
+[proxies.plugin]
+type = "static_file"
+localPath = "/tmp/files"
+stripPrefix = ""
+#httpUser = "abc"
+#httpPassword = "abc"
+
+[[proxies]]
+name = "plugin_httpproxy"
+type = "tcp"
+remotePort = 6062
+[proxies.plugin]
+type = "http_proxy"
+#httpUser = "abc"
+#httpPassword = "abc"
+
+[[proxies]]
+name = "plugin_socks5"
+type = "tcp"
+remotePort = 6063
+[proxies.plugin]
+type = "socks5"
+#username = "abc"
+#password = "abc"
